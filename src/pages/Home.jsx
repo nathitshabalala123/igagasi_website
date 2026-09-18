@@ -28,7 +28,7 @@ const pillars = [
   },
   {
     title: 'Community Partnership',
-    text: 'Proudly supported by the Peermont School Support Programme, strengthening our school for every learner.',
+    text: `Proudly supported by the ${schoolInfo.supportProgramme}, strengthening our school for every learner.`,
   },
 ]
 
