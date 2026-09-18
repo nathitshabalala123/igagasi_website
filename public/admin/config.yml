@@ -1,0 +1,74 @@
+backend:
+  name: github
+  # TODO: replace with your GitHub "owner/repo" once the repo is created,
+  # e.g. nathitshabalala123/igagasi-website
+  repo: nathitshabalala123/igagasi-website
+  branch: main
+  # TODO: replace with the site's real Vercel URL (no trailing slash),
+  # e.g. https://igagasi-website.vercel.app or a custom domain
+  base_url: https://igagasi-website.vercel.app
+  auth_endpoint: api/auth
+
+# Edits are saved as drafts first (visible under the "Workflow" tab in the
+# CMS) and only go live on the real site once the admin clicks "Publish".
+publish_mode: editorial_workflow
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "settings"
+    label: "School Settings"
+    files:
+      - name: "general"
+        label: "School Information"
+        file: "src/content/settings.json"
+        fields:
+          - { label: "School Name", name: "name", widget: "string" }
+          - { label: "Motto", name: "motto", widget: "string" }
+          - { label: "Address", name: "address", widget: "string" }
+          - { label: "Phone Number", name: "phone", widget: "string" }
+          - { label: "Email Address", name: "email", widget: "string" }
+          - { label: "Established Date", name: "established", widget: "string", hint: "e.g. 13 January 1993" }
+          - { label: "Grades Offered", name: "grades", widget: "string" }
+          - { label: "Principal Name", name: "principal", widget: "string" }
+          - { label: "Support Programme", name: "supportProgramme", widget: "string" }
+          - label: "Homepage"
+            name: "homepage"
+            widget: "object"
+            fields:
+              - { label: "Hero Title", name: "heroTitle", widget: "string" }
+              - { label: "Hero Subtitle", name: "heroSubtitle", widget: "text" }
+              - { label: "Principal Welcome Message", name: "welcomeMessage", widget: "text" }
+              - { label: "Highlighted Quote", name: "quote", widget: "string" }
+              - { label: "Quote Caption", name: "quoteCaption", widget: "string" }
+          - label: "About Page — Principal's Message"
+            name: "principalMessage"
+            widget: "object"
+            fields:
+              - { label: "Quote", name: "quote", widget: "text" }
+              - { label: "Signature Title", name: "title", widget: "string", hint: "e.g. Principal, Igagasi Primary School" }
+
+  - name: "announcements"
+    label: "Announcements"
+    folder: "src/content/announcements"
+    create: true
+    slug: "{{fields.date}}-{{slug}}"
+    identifier_field: "title"
+    summary: "{{title}} — {{date}}"
+    sortable_fields: ["date", "title"]
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", picker_utc: true }
+      - { label: "Message", name: "body", widget: "text", hint: "Leave a blank line between paragraphs." }
+
+  - name: "gallery"
+    label: "Gallery"
+    folder: "src/content/gallery"
+    create: true
+    slug: "{{fields.date}}-{{slug}}"
+    identifier_field: "caption"
+    fields:
+      - { label: "Photo", name: "image", widget: "image" }
+      - { label: "Caption", name: "caption", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", picker_utc: true }

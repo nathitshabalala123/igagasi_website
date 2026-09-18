@@ -1,0 +1,22 @@
+{
+  "name": "Igagasi Primary School",
+  "motto": "Education is Power",
+  "address": "1 Sekete Avenue, Spruitview, 1425",
+  "phone": "(011) 866-8612",
+  "email": "700340661@gdeschools.gov.za",
+  "established": "13 January 1993",
+  "grades": "Grade R - Grade 7",
+  "principal": "Mrs Pinky Dlamini-Motaung",
+  "supportProgramme": "Peermont School Support Programme",
+  "homepage": {
+    "heroTitle": "Education is Power",
+    "heroSubtitle": "Welcome to Igagasi Primary School, home to Grade R - Grade 7 learners in Spruitview. Since 13 January 1993, we have motivated and inspired our scholars to rise like the wave for which our school is named — igagasi.",
+    "welcomeMessage": "At Igagasi Primary School we believe every child carries the power to rise. Our staff, School Management Team and School Governing Body work together to create a safe, nurturing and motivating environment where scholars from Grade R to Grade 7 are equipped for the future.",
+    "quote": "Motivate. Inspire.",
+    "quoteCaption": "The words painted on our school walls, and the promise we live by every day."
+  },
+  "principalMessage": {
+    "quote": "Every learner who walks through our gates carries the power of the wave — the ability to rise, to build momentum, and to keep moving forward. At Igagasi Primary School, our staff, School Management Team and School Governing Body are committed to nurturing that power from Grade R all the way to Grade 7.",
+    "title": "Principal, Igagasi Primary School"
+  }
+}
