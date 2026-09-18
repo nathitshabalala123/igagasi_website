@@ -28,7 +28,9 @@ The production build is output to `dist/`.
 - `src/content/announcements/*.json` – one file per school notice, CMS-editable
 - `public/images` – school photos (badge wall, entrance mosaic, plaid pattern)
 - `public/admin` – the Decap CMS admin panel (`/admin` on the live site)
-- `api/auth.js`, `api/callback.js` – Vercel serverless functions that handle GitHub login for the CMS
+- `api/auth.js` – serves the CMS login screen (developer GitHub button + webmaster form)
+- `api/callback.js` – finishes the developer's GitHub OAuth login
+- `api/webmaster-login.js` – checks the webmaster's username/password
 
 ## Content Manager (Decap CMS)
 
@@ -63,6 +65,39 @@ broken by content edits.
    repo, and confirm you can open "School Settings" and "Gallery".
 
 Full protocol details: [decapcms.org/docs/github-backend](https://decapcms.org/docs/github-backend/).
+
+### Two login tiers: Developer vs Webmaster
+
+Visiting `/admin` and clicking to log in offers two options:
+
+- **Developer Login (GitHub)** – the "super admin" tier. Whoever logs in this way uses
+  their own real GitHub account, has full control over the repo (settings, collaborators,
+  deploy config), and can do anything a GitHub collaborator can do.
+- **Webmaster Login (username/password)** – for the person who actually maintains the
+  site day to day, with no GitHub account required. On success they get the exact same
+  CMS (Settings, Announcements, Gallery), but authenticated via a separate, narrowly
+  scoped GitHub token that can only read/write this one repo's contents — nothing else.
+
+To set up the webmaster login, add three more environment variables in Vercel:
+
+1. **Generate the webmaster's GitHub token**: GitHub → Settings → Developer settings →
+   Personal access tokens → **Fine-grained tokens** → Generate new token.
+   - Repository access: **Only select repositories** → this repo only.
+   - Permissions: **Contents: Read and write** (that's the only one needed).
+   - Copy the generated token.
+2. **Choose a username and password** for the webmaster, then hash the password:
+   ```bash
+   node -e "console.log(require('bcryptjs').hashSync('YOUR-PASSWORD-HERE', 10))"
+   ```
+   (run this in the project folder, where `bcryptjs` is already installed)
+3. **Add to Vercel** (Settings → Environment Variables):
+   - `WEBMASTER_USERNAME` – the username you chose (plain text)
+   - `WEBMASTER_PASSWORD_HASH` – the hash printed in step 2 (**not** the plain password)
+   - `WEBMASTER_GITHUB_TOKEN` – the token from step 1
+4. Redeploy. The webmaster can now log in at `/admin` with their username/password.
+
+Because edits still go through `editorial_workflow`, a webmaster mistake is still just a
+draft until someone clicks **Publish** — this doesn't remove that safety net.
 
 ## Updating Content in Code
 

@@ -1,12 +1,15 @@
-// Step 2 of the Decap CMS "github" OAuth flow.
+// Step 2 of the Decap CMS "github" OAuth flow (developer login only — the
+// webmaster login in api/auth.js never reaches this file).
 // GitHub redirects back here with a `code`; we exchange it server-side for
 // an access token (using the OAuth app's secret, which must never reach the
 // browser) and hand the token to the CMS popup via postMessage.
+import { renderOAuthMessage } from './_oauth-message.js'
+
 export default async function handler(req, res) {
   const { code, error, error_description: errorDescription } = req.query || {}
 
   if (error) {
-    res.status(400).send(renderMessage('error', { message: errorDescription || error }))
+    res.status(400).send(renderOAuthMessage('error', { message: errorDescription || error }))
     return
   }
 
@@ -19,7 +22,7 @@ export default async function handler(req, res) {
   }
 
   if (!code) {
-    res.status(400).send(renderMessage('error', { message: 'Missing authorization code from GitHub.' }))
+    res.status(400).send(renderOAuthMessage('error', { message: 'Missing authorization code from GitHub.' }))
     return
   }
 
@@ -37,37 +40,13 @@ export default async function handler(req, res) {
 
     if (tokenData.error || !tokenData.access_token) {
       res.status(400).send(
-        renderMessage('error', { message: tokenData.error_description || 'GitHub did not return an access token.' })
+        renderOAuthMessage('error', { message: tokenData.error_description || 'GitHub did not return an access token.' })
       )
       return
     }
 
-    res.status(200).send(renderMessage('success', { token: tokenData.access_token, provider: 'github' }))
+    res.status(200).send(renderOAuthMessage('success', { token: tokenData.access_token, provider: 'github' }))
   } catch (err) {
-    res.status(500).send(renderMessage('error', { message: 'Unexpected error while contacting GitHub.' }))
+    res.status(500).send(renderOAuthMessage('error', { message: 'Unexpected error while contacting GitHub.' }))
   }
-}
-
-function renderMessage(status, payload) {
-  // Escape so the JSON can't break out of the inline <script> block.
-  const safeJson = JSON.stringify(payload).replace(/</g, '\\u003c')
-
-  return `<!doctype html>
-<html>
-  <body>
-    <script>
-      (function () {
-        function receiveMessage(e) {
-          window.opener.postMessage(
-            'authorization:github:${status}:${safeJson}',
-            e.origin
-          );
-          window.removeEventListener('message', receiveMessage, false);
-        }
-        window.addEventListener('message', receiveMessage, false);
-        window.opener.postMessage('authorizing:github', '*');
-      })();
-    </script>
-  </body>
-</html>`
 }
