@@ -4,11 +4,11 @@ import { schoolInfo } from '../data/schoolInfo.js'
 
 const photos = schoolInfo.leadershipPhotos || {}
 
-function LeadershipPhoto({ src, alt, placeholderLabel }) {
+function LeadershipPhoto({ src, alt, placeholderLabel, variant = 'portrait' }) {
   if (src) {
-    return <img className="leadership-photo" src={src} alt={alt} />
+    return <img className={`leadership-photo leadership-photo--${variant}`} src={src} alt={alt} />
   }
-  return <PhotoPlaceholder label={placeholderLabel} className="photo-placeholder--portrait" />
+  return <PhotoPlaceholder label={placeholderLabel} className={`photo-placeholder--${variant}`} />
 }
 
 export default function Governance() {
@@ -40,7 +40,12 @@ export default function Governance() {
       <section className="section section--cream">
         <div className="container three-col">
           <div className="gov-card">
-            <LeadershipPhoto src={photos.smt} alt="School Management Team" placeholderLabel="Photo reserved" />
+            <LeadershipPhoto
+              src={photos.smt}
+              alt="School Management Team"
+              placeholderLabel="Photo reserved"
+              variant="wide"
+            />
             <span className="eyebrow">School Management Team</span>
             <h2>SMT</h2>
           </div>
@@ -50,13 +55,19 @@ export default function Governance() {
               src={photos.administration}
               alt="Administration Staff"
               placeholderLabel="Photo reserved"
+              variant="wide"
             />
             <span className="eyebrow">Administration Staff</span>
             <h2>AA</h2>
           </div>
 
           <div className="gov-card">
-            <LeadershipPhoto src={photos.sgb} alt="School Governing Body" placeholderLabel="Photo reserved" />
+            <LeadershipPhoto
+              src={photos.sgb}
+              alt="School Governing Body"
+              placeholderLabel="Photo reserved"
+              variant="wide"
+            />
             <span className="eyebrow">School Governing Body</span>
             <h2>SGB</h2>
           </div>
@@ -65,10 +76,10 @@ export default function Governance() {
 
       <section className="section section--navy contact-cta">
         <div className="container contact-cta__inner">
-          <h2>Want to Get Involved?</h2>
+          <h2>Support Our School</h2>
           <p>
-            Parents and community members interested in the School Governing Body are welcome to
-            contact the school office for more information.
+            Your generosity helps us continue motivating and inspiring every learner at Igagasi
+            Primary School. To make a donation to the school, please contact the school office.
           </p>
           <a className="btn btn--primary" href={`mailto:${schoolInfo.email}`}>
             Contact the School Office

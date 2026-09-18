@@ -572,7 +572,9 @@ main {
 }
 
 .gov-card .photo-placeholder,
-.gov-card .leadership-photo {
+.gov-card .leadership-photo,
+.gov-card .photo-placeholder--wide,
+.gov-card .leadership-photo--wide {
   margin-bottom: 20px;
 }
 
@@ -737,6 +739,22 @@ main {
   object-fit: cover;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+}
+
+/* Group/team photos (SMT, Administration, SGB) - wider frame than the
+   Principal's individual portrait, and "contain" instead of "cover" so
+   nobody in a group photo gets cropped out. */
+.photo-placeholder--wide {
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  max-width: none;
+}
+
+.leadership-photo--wide {
+  max-width: none;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: var(--cream);
 }
 
 /* ===================== Contact ===================== */
