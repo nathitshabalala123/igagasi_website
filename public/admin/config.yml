@@ -58,6 +58,8 @@ collections:
   - name: "announcements"
     label: "Announcements"
     folder: "src/content/announcements"
+    extension: "json"
+    format: "json"
     create: true
     slug: "{{fields.date}}-{{slug}}"
     identifier_field: "title"
@@ -71,6 +73,8 @@ collections:
   - name: "gallery"
     label: "Gallery"
     folder: "src/content/gallery"
+    extension: "json"
+    format: "json"
     create: true
     slug: "{{fields.date}}-{{slug}}"
     identifier_field: "caption"
