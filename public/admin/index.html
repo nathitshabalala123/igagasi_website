@@ -4,6 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
+    <!-- Without this, visiting "/admin" (no trailing slash) makes Decap CMS's
+         relative fetch of config.yml resolve to the site root instead of
+         /admin/config.yml, since that's how the browser resolves relative
+         URLs against a document path with no trailing slash. -->
+    <base href="/admin/" />
     <title>Igagasi Primary School — Content Manager</title>
   </head>
   <body>
