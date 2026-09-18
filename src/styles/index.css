@@ -894,6 +894,19 @@ main {
   color: var(--teal-700);
 }
 
+.announcement-card__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.announcement-card__image {
+  flex-shrink: 0;
+  width: 160px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
 .announcement-card__body h2 {
   font-size: 1.2rem;
   margin-bottom: 10px;
@@ -1036,6 +1049,11 @@ main {
 
   .announcement-card__date {
     width: auto;
+  }
+
+  .announcement-card__image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
   }
 
   .contact-form__row {

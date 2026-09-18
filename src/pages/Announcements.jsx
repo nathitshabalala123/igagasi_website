@@ -44,6 +44,9 @@ export default function Announcements() {
                     <h2>{item.title}</h2>
                     {renderParagraphs(item.body)}
                   </div>
+                  {item.image && (
+                    <img className="announcement-card__image" src={item.image} alt={item.title} loading="lazy" />
+                  )}
                 </article>
               ))}
             </div>
