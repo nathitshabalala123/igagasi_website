@@ -9,6 +9,12 @@ backend:
   base_url: https://igagasi-website.vercel.app
   auth_endpoint: api/auth
 
+# Lets the CMS talk to a local proxy server (npx decap-server) instead of
+# GitHub when running on localhost, so it can be tested before the GitHub
+# OAuth app / Vercel deployment above are set up. Has no effect in
+# production — real visitors never hit localhost.
+local_backend: true
+
 # Edits are saved as drafts first (visible under the "Workflow" tab in the
 # CMS) and only go live on the real site once the admin clicks "Publish".
 publish_mode: editorial_workflow
