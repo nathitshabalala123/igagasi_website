@@ -1,13 +1,21 @@
 // Step 1 of the Decap CMS "github" OAuth flow.
 // The CMS opens this endpoint in a popup. Rather than jumping straight to
 // GitHub, it offers two paths:
-//   - Developer (super admin): real GitHub OAuth, via ?provider=github below.
+//   - Developer (super admin): real GitHub OAuth, via ?go=github below.
 //   - Webmaster: a plain username/password form (api/webmaster-login.js)
 //     that, on success, hands Decap a separate, narrowly-scoped GitHub
 //     token — the webmaster never needs a GitHub account of their own.
 // See api/callback.js for the developer path's continuation.
+//
+// IMPORTANT: Decap's own "Login with GitHub" button automatically opens
+// this endpoint with its own query string (?provider=github&site_id=...)
+// before our page ever gets a chance to render, so that param name can't be
+// used to distinguish "user chose GitHub" from "Decap's default request" -
+// they're indistinguishable at that layer. That's why the link below uses a
+// different, Decap-unaware param name; anything else (including Decap's own
+// auto-added params) falls through to the chooser page.
 export default function handler(req, res) {
-  if (req.query?.provider === 'github') {
+  if (req.query?.go === 'github') {
     redirectToGitHub(req, res)
     return
   }
@@ -135,7 +143,7 @@ const LOGIN_CHOOSER_HTML = `<!doctype html>
 <body>
   <div class="card">
     <h1>Igagasi Primary School &mdash; CMS Login</h1>
-    <a class="btn btn-github" href="/api/auth?provider=github">Developer Login (GitHub)</a>
+    <a class="btn btn-github" href="/api/auth?go=github">Developer Login (GitHub)</a>
     <div class="divider">or</div>
     <form id="webmasterForm">
       <label for="username">Username</label>
