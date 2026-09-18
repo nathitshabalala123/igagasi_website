@@ -50,6 +50,14 @@ collections:
             fields:
               - { label: "Quote", name: "quote", widget: "text" }
               - { label: "Signature Title", name: "title", widget: "string", hint: "e.g. Principal, Igagasi Primary School" }
+          - label: "Leadership Page Photos"
+            name: "leadershipPhotos"
+            widget: "object"
+            fields:
+              - { label: "Principal's Photo", name: "principal", widget: "image", required: false }
+              - { label: "School Management Team Photo", name: "smt", widget: "image", required: false }
+              - { label: "Administration Staff Photo", name: "administration", widget: "image", required: false }
+              - { label: "School Governing Body Photo", name: "sgb", widget: "image", required: false }
 
   - name: "announcements"
     label: "Announcements"
