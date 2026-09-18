@@ -1,8 +1,6 @@
 backend:
   name: github
-  # TODO: replace with your GitHub "owner/repo" once the repo is created,
-  # e.g. nathitshabalala123/igagasi-website
-  repo: nathitshabalala123/igagasi-website
+  repo: nathitshabalala123/igagasi_website
   branch: main
   # TODO: replace with the site's real Vercel URL (no trailing slash),
   # e.g. https://igagasi-website.vercel.app or a custom domain
