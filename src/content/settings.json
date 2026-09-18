@@ -1,4 +1,10 @@
 {
+  "leadershipPhotos": {
+    "principal": "/images/uploads/principal-final.jpeg",
+    "smt": "/images/uploads/smt.jpeg",
+    "administration": "/images/uploads/admin.jpeg",
+    "sgb": "/images/uploads/sgb.jpeg"
+  },
   "name": "Igagasi Primary School",
   "supportProgramme": "Parents",
   "motto": "Education is Power",
@@ -18,11 +24,5 @@
     "title": "Principal, Igagasi Primary School"
   },
   "grades": "Grade R - Grade 7",
-  "email": "700340661@gdeschools.gov.za",
-  "leadershipPhotos": {
-    "principal": "",
-    "smt": "",
-    "administration": "",
-    "sgb": ""
-  }
+  "email": "700340661@gdeschools.gov.za"
 }
