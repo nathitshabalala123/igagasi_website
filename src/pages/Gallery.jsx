@@ -1,5 +1,7 @@
 import PageHero from '../components/PageHero.jsx'
 import PhotoPlaceholder from '../components/PhotoPlaceholder.jsx'
+import Lightbox from '../components/Lightbox.jsx'
+import { useLightbox } from '../hooks/useLightbox.js'
 
 // Photos are managed by the school admin via /admin (Decap CMS), one JSON
 // file per photo under src/content/gallery. New files just show up here
@@ -13,7 +15,15 @@ const photoItems = Object.values(galleryModules)
 const targetGridSize = 6
 const placeholderCount = Math.max(0, targetGridSize - photoItems.length)
 
+const lightboxItems = photoItems.map((item) => ({
+  src: item.image,
+  alt: item.caption,
+  caption: item.caption,
+}))
+
 export default function Gallery() {
+  const lightbox = useLightbox(lightboxItems)
+
   return (
     <>
       <PageHero
@@ -29,15 +39,29 @@ export default function Gallery() {
             <h2>Around the Campus</h2>
           </div>
           <div className="photo-grid">
-            {photoItems.map((item) => (
+            {photoItems.map((item, index) => (
               <figure className="photo-card" key={item.image}>
-                <img src={item.image} alt={item.caption} loading="lazy" />
+                <button
+                  type="button"
+                  className="photo-card__trigger"
+                  onClick={() => lightbox.open(index)}
+                  aria-label={`View larger photo: ${item.caption}`}
+                >
+                  <img src={item.image} alt={item.caption} loading="lazy" />
+                </button>
                 <figcaption>{item.caption}</figcaption>
               </figure>
             ))}
           </div>
         </div>
       </section>
+
+      <Lightbox
+        item={lightbox.item}
+        onClose={lightbox.close}
+        onNavigate={lightbox.navigate}
+        hasMultiple={lightbox.hasMultiple}
+      />
 
       {placeholderCount > 0 && (
         <section className="section section--cream">

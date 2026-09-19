@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import PageHero from '../components/PageHero.jsx'
+import Lightbox from '../components/Lightbox.jsx'
 
 // Announcements are managed by the school admin via /admin (Decap CMS), one
 // JSON file per notice under src/content/announcements. New/edited files
@@ -23,6 +25,8 @@ function renderParagraphs(text) {
 }
 
 export default function Announcements() {
+  const [lightboxItem, setLightboxItem] = useState(null)
+
   return (
     <>
       <PageHero
@@ -45,7 +49,14 @@ export default function Announcements() {
                     {renderParagraphs(item.body)}
                   </div>
                   {item.image && (
-                    <img className="announcement-card__image" src={item.image} alt={item.title} loading="lazy" />
+                    <button
+                      type="button"
+                      className="announcement-card__image-trigger"
+                      onClick={() => setLightboxItem({ src: item.image, alt: item.title, caption: item.title })}
+                      aria-label={`View larger photo: ${item.title}`}
+                    >
+                      <img className="announcement-card__image" src={item.image} alt={item.title} loading="lazy" />
+                    </button>
                   )}
                 </article>
               ))}
@@ -55,6 +66,8 @@ export default function Announcements() {
           )}
         </div>
       </section>
+
+      <Lightbox item={lightboxItem} onClose={() => setLightboxItem(null)} onNavigate={() => {}} hasMultiple={false} />
     </>
   )
 }
