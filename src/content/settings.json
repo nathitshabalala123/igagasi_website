@@ -24,5 +24,9 @@
     "title": "Principal, Igagasi Primary School"
   },
   "grades": "Grade R - Grade 7",
-  "email": "700340661@gdeschools.gov.za"
+  "email": "700340661@gdeschools.gov.za",
+  "officeHours": {
+    "days": "Monday - Friday",
+    "time": "08:00 - 14:30"
+  }
 }

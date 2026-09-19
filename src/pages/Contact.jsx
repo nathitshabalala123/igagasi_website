@@ -33,7 +33,7 @@ export default function Contact() {
               </li>
               <li>
                 <strong>Office Hours</strong>
-                <span>Monday - Friday, 07:00 - 15:00</span>
+                <span>{schoolInfo.officeHours.days}, {schoolInfo.officeHours.time}</span>
               </li>
             </ul>
           </div>

@@ -35,6 +35,12 @@ collections:
           - { label: "Grades Offered", name: "grades", widget: "string" }
           - { label: "Principal Name", name: "principal", widget: "string" }
           - { label: "Support Programme", name: "supportProgramme", widget: "string" }
+          - label: "Office Hours"
+            name: "officeHours"
+            widget: "object"
+            fields:
+              - { label: "Days", name: "days", widget: "string", hint: "e.g. Monday - Friday" }
+              - { label: "Time", name: "time", widget: "string", hint: "e.g. 08:00 - 14:30" }
           - label: "Homepage"
             name: "homepage"
             widget: "object"

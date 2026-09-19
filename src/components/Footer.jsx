@@ -44,8 +44,8 @@ export default function Footer() {
         <div className="footer__col">
           <h4>Office Hours</h4>
           <ul>
-            <li>Monday - Friday</li>
-            <li>07:00 - 15:00</li>
+            <li>{schoolInfo.officeHours.days}</li>
+            <li>{schoolInfo.officeHours.time}</li>
           </ul>
         </div>
       </div>
