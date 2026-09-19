@@ -53,6 +53,15 @@ export default function Footer() {
       <div className="footer__bottom container">
         <p>&copy; {new Date().getFullYear()} {schoolInfo.name}. All rights reserved.</p>
         <p>Grade R - Grade 7 &middot; Est. {schoolInfo.established}</p>
+        <a
+          className="footer__credit"
+          href="https://nduna.site"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="/images/nduna-logo.png" alt="" aria-hidden="true" />
+          Powered by Nduna AI
+        </a>
       </div>
     </footer>
   )
