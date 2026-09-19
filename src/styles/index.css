@@ -572,9 +572,8 @@ main {
 }
 
 .gov-card .photo-placeholder,
-.gov-card .leadership-photo,
 .gov-card .photo-placeholder--wide,
-.gov-card .leadership-photo--wide {
+.gov-card .leadership-photo-trigger {
   margin-bottom: 20px;
 }
 
@@ -589,7 +588,7 @@ main {
 }
 
 .principal-spotlight .photo-placeholder,
-.principal-spotlight .leadership-photo {
+.principal-spotlight .leadership-photo-trigger {
   flex-shrink: 0;
   width: 180px;
 }
@@ -748,13 +747,34 @@ main {
   max-width: 220px;
 }
 
-.leadership-photo {
+.leadership-photo-trigger {
+  display: block;
   width: 100%;
   max-width: 220px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: zoom-in;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.leadership-photo-trigger--wide {
+  max-width: none;
+}
+
+.leadership-photo {
+  display: block;
+  width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  transition: transform 0.2s ease;
+}
+
+.leadership-photo-trigger:hover .leadership-photo,
+.leadership-photo-trigger:focus-visible .leadership-photo {
+  transform: scale(1.04);
 }
 
 /* Group/team photos (SMT, Administration, SGB) - wider frame than the
@@ -767,7 +787,6 @@ main {
 }
 
 .leadership-photo--wide {
-  max-width: none;
   aspect-ratio: 4 / 3;
   object-fit: contain;
   background: var(--cream);

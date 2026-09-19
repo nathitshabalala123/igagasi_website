@@ -1,17 +1,44 @@
 import PageHero from '../components/PageHero.jsx'
 import PhotoPlaceholder from '../components/PhotoPlaceholder.jsx'
+import Lightbox from '../components/Lightbox.jsx'
+import { useLightbox } from '../hooks/useLightbox.js'
 import { schoolInfo } from '../data/schoolInfo.js'
 
 const photos = schoolInfo.leadershipPhotos || {}
 
-function LeadershipPhoto({ src, alt, placeholderLabel, variant = 'portrait' }) {
+const leadershipEntries = [
+  { src: photos.principal, alt: schoolInfo.principal, caption: schoolInfo.principal },
+  { src: photos.smt, alt: 'School Management Team', caption: 'School Management Team' },
+  { src: photos.administration, alt: 'Administration Staff', caption: 'Administration Staff' },
+  { src: photos.sgb, alt: 'School Governing Body', caption: 'School Governing Body' },
+]
+
+const lightboxItems = leadershipEntries.filter((entry) => entry.src)
+
+function LeadershipPhoto({ src, alt, placeholderLabel, variant = 'portrait', onOpen }) {
   if (src) {
-    return <img className={`leadership-photo leadership-photo--${variant}`} src={src} alt={alt} />
+    return (
+      <button
+        type="button"
+        className={`leadership-photo-trigger leadership-photo-trigger--${variant}`}
+        onClick={onOpen}
+        aria-label={`View larger photo: ${alt}`}
+      >
+        <img className={`leadership-photo leadership-photo--${variant}`} src={src} alt={alt} />
+      </button>
+    )
   }
   return <PhotoPlaceholder label={placeholderLabel} className={`photo-placeholder--${variant}`} />
 }
 
 export default function Governance() {
+  const lightbox = useLightbox(lightboxItems)
+
+  function openPhoto(src) {
+    const index = lightboxItems.findIndex((item) => item.src === src)
+    if (index !== -1) lightbox.open(index)
+  }
+
   return (
     <>
       <PageHero
@@ -27,6 +54,7 @@ export default function Governance() {
               src={photos.principal}
               alt={schoolInfo.principal}
               placeholderLabel="Principal's photo reserved"
+              onOpen={() => openPhoto(photos.principal)}
             />
             <div className="principal-spotlight__info">
               <span className="eyebrow">School Leadership</span>
@@ -45,6 +73,7 @@ export default function Governance() {
               alt="School Management Team"
               placeholderLabel="Photo reserved"
               variant="wide"
+              onOpen={() => openPhoto(photos.smt)}
             />
             <span className="eyebrow">School Management Team</span>
             <h2>SMT</h2>
@@ -56,6 +85,7 @@ export default function Governance() {
               alt="Administration Staff"
               placeholderLabel="Photo reserved"
               variant="wide"
+              onOpen={() => openPhoto(photos.administration)}
             />
             <span className="eyebrow">Administration Staff</span>
             <h2>AA</h2>
@@ -67,6 +97,7 @@ export default function Governance() {
               alt="School Governing Body"
               placeholderLabel="Photo reserved"
               variant="wide"
+              onOpen={() => openPhoto(photos.sgb)}
             />
             <span className="eyebrow">School Governing Body</span>
             <h2>SGB</h2>
@@ -86,6 +117,13 @@ export default function Governance() {
           </a>
         </div>
       </section>
+
+      <Lightbox
+        item={lightbox.item}
+        onClose={lightbox.close}
+        onNavigate={lightbox.navigate}
+        hasMultiple={lightbox.hasMultiple}
+      />
     </>
   )
 }
