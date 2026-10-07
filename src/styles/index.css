@@ -897,6 +897,13 @@ main {
   margin-bottom: 14px;
 }
 
+.footer__brand .logo {
+  background: var(--white);
+  border-radius: 6px;
+  padding: 3px;
+  box-sizing: content-box;
+}
+
 .footer__brand strong {
   color: var(--white);
   font-family: var(--font-heading);
